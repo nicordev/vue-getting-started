@@ -58,14 +58,15 @@ export default {
     HeroDetail,
   },
   mixins: [lifecycleHooks, heroWatchers],
-  created() {
-    this.loadHeroes();
+  async created() {
+    await this.loadHeroes();
+    // If I had a line of code here, the await keyword above would wait for loadHeroes to finish before executing this line of code.
   },
   methods: {
-    loadHeroes() {
+    async loadHeroes() {
       this.heroes = [];
       this.message = 'getting the heroes, please be patient';
-      this.heroes = data.ourHeroes;
+      this.heroes = await data.getHeroes();
       this.message = '';
     },
     cancelHero() {
